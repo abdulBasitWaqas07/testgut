@@ -1,0 +1,50 @@
+This guide shows how to build an universal apk
+
+To generate a release signed universal apk
+
+copy this command on Android Studio Terminal
+
+gradlew :app:package{BuildVariant}UniversalApk
+-Pandroid.injected.signing.store.password={StorePassword}
+-Pandroid.injected.signing.key.password={KeyPassword}
+-Pandroid.injected.signing.key.alias={KeyAlias}
+-Pandroid.injected.signing.store.file={KeyStorePath}
+
+and press Ctrl+Enter
+
+
+
+Example
+
+gradlew :app:packageDevReleaseUniversalApk
+-Pandroid.injected.signing.store.password=123456
+-Pandroid.injected.signing.key.password=123456
+-Pandroid.injected.signing.key.alias=key0
+-Pandroid.injected.signing.store.file=C:\Users/User/app/keystore.jks
+
+
+To check if your apk is signed successfully
+
+in command prompt, navigate to java directory using the following command
+
+cd C:\Program Files\Android\Android Studio\jre\bin
+
+then, use the following command to check if your apk is signed with provided jks
+
+keytool -printcert -jarfile {PathToUniversalApk}
+
+Example
+
+keytool -printcert -jarfile C:\Users\User\Project\app\build\outputs\universal_apk\Debug\app-debug-universal.apk
+
+
+
+if it looks like this
+
+Owner: C=US, O=Android, CN=Android Debug
+Issuer: C=US, O=Android, CN=Android Debug
+
+It means that the apk is not signed
+
+
+
